@@ -1,6 +1,6 @@
-import { Client, GatewayIntentBits } from 'discord.js';
+import { Client, GatewayIntentBits, Interaction, CommandInteraction } from 'discord.js';
 import * as dotenv from 'dotenv';
-import { pingData, pingExecute, greetData, greetExecute } from './commands';
+import { pingData, pingExecute, greetData, greetExecute, latexData, latexExecute } from './commands';
 
 dotenv.config();
 
@@ -12,20 +12,35 @@ client.once('ready', () => {
     console.log(`Logged in as ${client.user?.tag}!`);
 });
 
-client.on('interactionCreate', async (interaction) => {
+client.on('interactionCreate', async (interaction: Interaction) => {
     console.log(`Interaction received: ${interaction.type}`);
+    
+    // Check if the interaction is a command interaction
     if (!interaction.isCommand()) return;
 
-    const { commandName } = interaction;
+    // Now TypeScript understands that interaction is a CommandInteraction
+    const commandInteraction = interaction as CommandInteraction;
+    console.log(`Command: ${commandInteraction.commandName}`); // Log the command name
 
-    if (commandName === pingData.name) {
-        await pingExecute(interaction);
-    } else if (commandName === greetData.name) {
-        await greetExecute(interaction);
+    switch (commandInteraction.commandName) {
+        case pingData.name:
+            await pingExecute(commandInteraction);
+            break;
+        case greetData.name:
+            await greetExecute(commandInteraction);
+            break;
+        case latexData.name:
+            await latexExecute(commandInteraction);
+            break;
+        default:
+            console.log(`Unknown command: ${commandInteraction.commandName}`);
+            break;
     }
 });
 
 client.login(process.env.TOKEN);
+
+
 
 
 

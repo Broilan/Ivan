@@ -11,11 +11,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.7.7",
+    "canvas": "^2.11.2",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.5",
+    "katex": "^0.16.11",
     "undici": "^6.19.8"
   },
   "devDependencies": {
+    "@types/katex": "^0.16.7",
     "@types/node": "^22.7.4",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.2"

@@ -1,13 +1,15 @@
+//run to update ---> npx ts-node src/deploy-commands.ts
+
 import { REST, Routes } from 'discord.js';
 import * as dotenv from 'dotenv';
-import { data as pingData } from './commands/ping';  // Adjust path if needed
-import { data as greetData } from './commands/greet';  // Adjust path if needed
+import { pingData, greetData, latexData } from './commands'; 
 
 dotenv.config();
 
 const commands = [
-    pingData.toJSON(),  // Ensure you are calling toJSON() correctly
+    pingData.toJSON(),
     greetData.toJSON(),
+    latexData.toJSON(),
 ];
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN!);
